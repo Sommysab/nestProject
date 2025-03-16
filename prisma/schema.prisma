@@ -1,0 +1,20 @@
+// Defines the database connection settings
+datasource db {
+  provider = "postgresql" // Specifies PostgreSQL as the database provider
+  url      = env("DATABASE_URL") // Loads the database URL from environment variables
+}
+
+// Configures the Prisma Client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Defines the User model representing users in the database
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  biometricKey String?  @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
